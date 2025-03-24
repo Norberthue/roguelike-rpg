@@ -1,4 +1,3 @@
-@import "tailwindcss";
 
 body {
     margin-top: 2rem;
@@ -6,13 +5,15 @@ body {
     margin-right: 2rem;
 }
 
+div, h1 ,h3{
+    margin: 0px;
+    padding: 0px;
+}
+
 .layout-grid-1 {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    align-items: center;
-    
-    
 }
 
 .layout-grid-2 {
@@ -20,22 +21,8 @@ body {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    align-items: center;
-    
-    
 }
 
-.items-container {
-    grid-column: span 3 / span 3;
-    min-height: 500px;
-    background-color: rgb(221, 44, 44)
-}
-
-.battle-container {
-    grid-column: span 9 / span 9;
-    min-height: 500px;
-    background-color: rgb(240, 188, 17);
-}
 
 
 .character-equip-container {

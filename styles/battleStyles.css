@@ -1,0 +1,77 @@
+.battle-container {
+    grid-column: span 9 / span 9;
+    min-height: 500px;
+    background-color: rgb(240, 188, 17);
+    display: flex;
+    flex-direction: column;
+    
+}
+.battle-title {
+    margin-inline: auto;
+    margin-bottom: 0px;
+}
+
+.battle-scene {
+    display: flex;
+    gap: 10px;
+    padding: 0px 30px 30px 30px;
+    justify-content: space-between;
+    
+}
+
+
+.player {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.img-player {
+    width: 230px;
+}
+
+.player-stats {
+    background-color: blue;
+    width: 210px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 200;
+    padding: 10px;
+}
+.container-stats {
+    display: grid;
+    grid-template-columns: 1fr 80px 30px;
+    align-items: center ;
+    
+}
+
+.all-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stats-text {
+    margin-inline: auto;
+    
+}
+
+.enemy {
+    display: flex;
+    flex-direction: column;
+}
+
+.img-enemy {
+    width: 230px;
+}
+
+.enemy-stats {
+    background-color: rgb(255, 0, 255);
+    width: 210px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 200;
+    padding: 10px;
+}
