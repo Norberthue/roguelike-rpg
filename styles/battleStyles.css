@@ -19,6 +19,25 @@
     
 }
 
+.battle-log {
+    background-color: rgb(44, 194, 57);
+    max-width:530px;
+    width:max-content;
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px ;
+}
+
+.start-battle-btt{
+    
+}
+
+.battle-text{
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .player {
     display: flex;
@@ -28,12 +47,13 @@
 
 .img-player {
     width: 230px;
+    height: 200px;
 }
 
 .player-stats {
     background-color: blue;
     width: 210px;
-    height: 210px;
+    height: 270px;
     display: flex;
     flex-direction: column;
     font-weight: 200;
@@ -64,12 +84,13 @@
 
 .img-enemy {
     width: 230px;
+    height: 200px;
 }
 
 .enemy-stats {
     background-color: rgb(255, 0, 255);
     width: 210px;
-    height: 210px;
+    height: 270px;
     display: flex;
     flex-direction: column;
     font-weight: 200;

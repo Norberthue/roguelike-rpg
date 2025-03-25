@@ -58,60 +58,96 @@
                         <img class="img-player" src="./assets/heroes/con1.png">
                     </div>
                     <div class="player-stats">
+                        <div style="position: relative; display: flex; justify-content: center;">
+                            <progress style="background-color: green; position: relative;" id="p-health" value="100" max="100"></progress>
+                            <h1 id="p-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                        </div>
                         <h1 class="stats-text">Stats</h1>
                         <div class="all-stats">
                             <div class="container-stats">
                                 <h3>Vitality</h3>
-                                <span>20</span>
+                                <span id="p-vit">20</span>
                                 <button>+</button>
                             </div>
                             <div class="container-stats">
                                 <h3>Dexterity</h3>
-                                <span>20</span>
+                                <span id="p-dex">20</span>
                                 <button>+</button>
-                            </div><div class="container-stats">
-                                <h3>Inteligence</h3>
-                                <span>20</span>
+                            </div>
+                            <div class="container-stats">
+                                <h3>Intelligence</h3>
+                                <span id="p-int">20</span>
                                 <button>+</button>
-                            </div><div class="container-stats">
+                            </div>
+                            <div class="container-stats">
                                 <h3>Luck</h3>
-                                <span>20</span>
+                                <span id="p-lck">20</span>
                                 <button>+</button>
-                            </div><div class="container-stats">
+                            </div>
+                            <div class="container-stats">
                                 <h3>Strength</h3>
-                                <span>20</span>
+                                <span id="p-str">20</span>
+                                <button>+</button>
+                            </div>
+                            <div class="container-stats">
+                                <h3>Damage</h3>
+                                <span id="p-damage">20</span>
+                                <button>+</button>
+                            </div>
+                            <div class="container-stats">
+                                <h3>Armor</h3>
+                                <span id="p-armor">20</span>
                                 <button>+</button>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="battle-log">
+                    <div class="battle-text">Battle Log</div>
+                    <div id="battle-log-text" style="display: flex; flex-direction: column; overflow-y: auto; background-color: white; max-height: 300px; min-height: 300px; padding: 5px;"></div>
+                    <button id="start-battle-btt-js" class="start-battle-btt">Start Battle</button>
                 </div>
                 <div class="enemy">
                     <div>
                         <img class="img-enemy" src="assets/enemies/con10.png">
                     </div>
                     <div class="enemy-stats">
+                        <div style="position: relative; display: flex; justify-content: center;">
+                            <progress style="background-color: green; position: relative;" id="e-health" value="100" max="100"></progress>
+                            <h1 id="e-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                        </div>
                         <h1 class="stats-text">Stats</h1>
                         <div class="all-stats">
                             <div class="container-stats">
                                 <h3>Vitality</h3>
-                                <span>20</span>
+                                <span id="e-vit">20</span>
                                 <button>+</button>
                             </div>
                             <div class="container-stats">
                                 <h3>Dexterity</h3>
-                                <span>20</span>
+                                <span id="e-dex">20</span>
                                 <button>+</button>
                             </div><div class="container-stats">
                                 <h3>Inteligence</h3>
-                                <span>20</span>
+                                <span id="e-int">20</span>
                                 <button>+</button>
                             </div><div class="container-stats">
                                 <h3>Luck</h3>
-                                <span>20</span>
+                                <span id="e-lck">20</span>
                                 <button>+</button>
                             </div><div class="container-stats">
                                 <h3>Strength</h3>
-                                <span>20</span>
+                                <span id="e-str">20</span>
+                                <button>+</button>
+                            </div>
+                            <div class="container-stats">
+                                <h3>Damage</h3>
+                                <span id="e-damage">20</span>
+                                <button>+</button>
+                            </div>
+                            <div class="container-stats">
+                                <h3>Armor</h3>
+                                <span id="e-armor">20</span>
                                 <button>+</button>
                             </div>
                         </div>
