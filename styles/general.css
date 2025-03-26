@@ -5,7 +5,7 @@ body {
     margin-right: 2rem;
 }
 
-div, h1 ,h3{
+div, h1 ,h3, p{
     margin: 0px;
     padding: 0px;
 }

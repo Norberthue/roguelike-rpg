@@ -6,6 +6,7 @@
     <link href="./styles/general.css" rel="stylesheet">
     <link href="./styles/inventoryStyle.css" rel="stylesheet">
     <link href="./styles/battleStyles.css" rel="stylesheet">
+    <link href="./styles/pickableEnemyStyles.css" rel="stylesheet"> 
     <title>Document</title>
 </head>
 <body >
@@ -58,53 +59,209 @@
                         <img class="img-player" src="./assets/heroes/con1.png">
                     </div>
                     <div class="player-stats">
-                        <div style="position: relative; display: flex; justify-content: center;">
-                            <progress style="background-color: green; position: relative;" id="p-health" value="100" max="100"></progress>
-                            <h1 id="p-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                        <div style="display: flex;">
+                            <p style="margin-right: 5px;">Health: </p>
+                            <div style="position: relative; display: flex; justify-content: center;">
+                                <progress style="background-color: green;" id="p-health" value="100" max="100"></progress>
+                                <h1 id="p-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                            </div>
                         </div>
-                        <h1 class="stats-text">Stats</h1>
+                        <div style="display: flex;">
+                            <p style="display: flex;">Level:<span id="player-level-text" style="margin-right: 2px; margin-left: 1px;">1</span> </p>
+                            <div style="position: relative; display: flex; justify-content: center;">
+                                <progress style="background-color:blueviolet;" id="p-level" value="100" max="100"></progress>
+                                <h1 id="player-level-progress-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h1>Stats</h1>
+                            </div>
+                            <div style="display: flex; justify-content: end;">
+                                <p style="font-weight: 700;">Points: <span id="p-points">0</span></p>
+                            </div>
+                        </div>
+                        
                         <div class="all-stats">
                             <div class="container-stats">
                                 <h3>Vitality</h3>
                                 <span id="p-vit">20</span>
-                                <button>+</button>
+                                <button id="plus-stats"  data-id="vit">+</button>
                             </div>
                             <div class="container-stats">
                                 <h3>Dexterity</h3>
                                 <span id="p-dex">20</span>
-                                <button>+</button>
+                                <button id="plus-stats"  data-id="dex">+</button>
                             </div>
                             <div class="container-stats">
                                 <h3>Intelligence</h3>
                                 <span id="p-int">20</span>
-                                <button>+</button>
+                                <button id="plus-stats"  data-id="int">+</button>
                             </div>
                             <div class="container-stats">
                                 <h3>Luck</h3>
                                 <span id="p-lck">20</span>
-                                <button>+</button>
+                                <button id="plus-stats"  data-id="lck">+</button>
                             </div>
                             <div class="container-stats">
                                 <h3>Strength</h3>
                                 <span id="p-str">20</span>
-                                <button>+</button>
+                                <button id="plus-stats"  data-id="str">+</button>
                             </div>
                             <div class="container-stats">
                                 <h3>Damage</h3>
-                                <span id="p-damage">20</span>
-                                <button>+</button>
+                                <span id="p-damage">20</span>                              
                             </div>
                             <div class="container-stats">
                                 <h3>Armor</h3>
                                 <span id="p-armor">20</span>
-                                <button>+</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="battle-log">
                     <div class="battle-text">Battle Log</div>
-                    <div id="battle-log-text" style="display: flex; flex-direction: column; overflow-y: auto; background-color: white; max-height: 300px; min-height: 300px; padding: 5px;"></div>
+                    <div id="battle-log-text" style="display: flex; flex-direction: column; overflow-y: auto; background-color: white; max-height: 300px; min-height: 300px; padding: 5px;">
+                    </div>
+                    <div id="pick-enemy-container" style="display: flex;  position: absolute; visibility: hidden; justify-content: space-between; background-color: white; max-height: 500px; min-height: 450px; padding: 5px;">
+                        <div class="pickable-e">
+                            <div>
+                                <img class="pickable-e-img" src="assets/enemies/con14.png">
+                            </div>
+                            <div class="pickable-e-stats">
+                                <div style="position: relative; display: flex; justify-content: center;">
+                                    <p style="margin-right: 5px;">Health: </p>
+                                    <div style="position: relative; display: flex; justify-content: center;">
+                                        <progress style="background-color: green; width: 60px; position: relative;" id="pickable-e-health" value="100" max="100"></progress>
+                                        <h1 id="pickable-e-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                                    </div>
+                                </div>
+                                <div style="display: flex;">
+                                    <p style="display: flex;">Level:<span id="pickable-enemy-level-text" style="margin-right: 2px; margin-left: 1px;">1</span> </p>
+                                </div>
+                                <h1 class="stats-text">Stats</h1>
+                                <div class="all-stats">
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Vitality</h3>
+                                        <span id="pickable-e-vit">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e ">
+                                        <h3>Dexterity</h3>
+                                        <span id="pickable-e-dex">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Inteligence</h3>
+                                        <span id="pickable-e-int">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Luck</h3>
+                                        <span id="pickable-e-lck">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Strength</h3>
+                                        <span id="pickable-e-str">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Damage</h3>
+                                        <span id="pickable-e-damage">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Armor</h3>
+                                        <span id="pickable-e-armor">20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pickable-e">
+                            <div>
+                                <img  class="pickable-e-img" src="assets/enemies/con21.png">
+                            </div>
+                            <div class="pickable-e-stats">
+                                <div style="position: relative; display: flex; justify-content: center;">
+                                    <p style="margin-right: 5px;">Health: </p>
+                                    <div style="position: relative; display: flex; justify-content: center;">
+                                        <progress style="background-color: green; width: 60px; position: relative;" id="pickable-e-health" value="100" max="100"></progress>
+                                        <h1 id="pickable-e-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                                    </div>
+                                </div>
+                                <div style="display: flex;">
+                                    <p style="display: flex;">Level:<span id="pickable-enemy-level-text" style="margin-right: 2px; margin-left: 1px;">1</span> </p>
+                                </div>
+                                <h1 class="stats-text">Stats</h1>
+                                <div class="all-stats">
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Vitality</h3>
+                                        <span id="pickable-e-vit">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e ">
+                                        <h3>Dexterity</h3>
+                                        <span id="pickable-e-dex">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Inteligence</h3>
+                                        <span id="pickable-e-int">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Luck</h3>
+                                        <span id="pickable-e-lck">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Strength</h3>
+                                        <span id="pickable-e-str">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Damage</h3>
+                                        <span id="pickable-e-damage">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Armor</h3>
+                                        <span id="pickable-e-armor">20</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="pickable-e">
+                            <div>
+                                <img  class="pickable-e-img" src="assets/enemies/con34.png">
+                            </div>
+                            <div class="pickable-e-stats">
+                                <div style="position: relative; display: flex; justify-content: center;">
+                                    <p style="margin-right: 5px;">Health: </p>
+                                    <div style="position: relative; display: flex; justify-content: center;">
+                                        <progress style="background-color: green; width: 60px; position: relative;" id="pickable-e-health" value="100" max="100"></progress>
+                                        <h1 id="pickable-e-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                                    </div>
+                                </div>
+                                <div style="display: flex;">
+                                    <p style="display: flex;">Level:<span id="pickable-enemy-level-text" style="margin-right: 2px; margin-left: 1px;">1</span> </p>
+                                </div>
+                                <h1 class="stats-text">Stats</h1>
+                                <div class="all-stats">
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Vitality</h3>
+                                        <span id="pickable-e-vit">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e ">
+                                        <h3>Dexterity</h3>
+                                        <span id="pickable-e-dex">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Inteligence</h3>
+                                        <span id="pickable-e-int">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Luck</h3>
+                                        <span id="pickable-e-lck">20</span>
+                                    </div><div class="pickable-container-stats-e">
+                                        <h3>Strength</h3>
+                                        <span id="pickable-e-str">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Damage</h3>
+                                        <span id="pickable-e-damage">20</span>
+                                    </div>
+                                    <div class="pickable-container-stats-e">
+                                        <h3>Armor</h3>
+                                        <span id="pickable-e-armor">20</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                     <button id="start-battle-btt-js" class="start-battle-btt">Start Battle</button>
                 </div>
                 <div class="enemy">
@@ -113,42 +270,41 @@
                     </div>
                     <div class="enemy-stats">
                         <div style="position: relative; display: flex; justify-content: center;">
-                            <progress style="background-color: green; position: relative;" id="e-health" value="100" max="100"></progress>
-                            <h1 id="e-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                            <p style="margin-right: 5px;">Health: </p>
+                            <div style="position: relative; display: flex; justify-content: center;">
+                                <progress style="background-color: green; position: relative;" id="e-health" value="100" max="100"></progress>
+                                <h1 id="e-health-text" style="position: absolute; top: 0px; font-size: 15px">140</h1>
+                            </div>
+                        </div>
+                        <div style="display: flex;">
+                            <p style="display: flex;">Level:<span id="enemy-level-text" style="margin-right: 2px; margin-left: 1px;">1</span> </p>
                         </div>
                         <h1 class="stats-text">Stats</h1>
                         <div class="all-stats">
-                            <div class="container-stats">
+                            <div class="container-stats-e">
                                 <h3>Vitality</h3>
                                 <span id="e-vit">20</span>
-                                <button>+</button>
                             </div>
-                            <div class="container-stats">
+                            <div class="container-stats-e ">
                                 <h3>Dexterity</h3>
                                 <span id="e-dex">20</span>
-                                <button>+</button>
-                            </div><div class="container-stats">
+                            </div><div class="container-stats-e">
                                 <h3>Inteligence</h3>
                                 <span id="e-int">20</span>
-                                <button>+</button>
-                            </div><div class="container-stats">
+                            </div><div class="container-stats-e">
                                 <h3>Luck</h3>
                                 <span id="e-lck">20</span>
-                                <button>+</button>
-                            </div><div class="container-stats">
+                            </div><div class="container-stats-e">
                                 <h3>Strength</h3>
                                 <span id="e-str">20</span>
-                                <button>+</button>
                             </div>
-                            <div class="container-stats">
+                            <div class="container-stats-e">
                                 <h3>Damage</h3>
                                 <span id="e-damage">20</span>
-                                <button>+</button>
                             </div>
-                            <div class="container-stats">
+                            <div class="container-stats-e">
                                 <h3>Armor</h3>
                                 <span id="e-armor">20</span>
-                                <button>+</button>
                             </div>
                         </div>
                     </div>
