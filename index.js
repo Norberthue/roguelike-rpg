@@ -144,7 +144,6 @@ const enemmy_health_text_element = document.getElementById('e-health-text')
 enemmy_health_text_element.innerHTML = enemy_stats.health + '/' + enemmy_health_element.getAttribute('max')
 //enemy img 
 const enemy_img = document.querySelector('.img-enemy')
-console.log(enemy_img)
 // enemy level 
 const enemy_level_text = document.getElementById('enemy-level-text')
 
@@ -200,9 +199,60 @@ const update_enemy_stats_ui = () => {
 
 const update_new_enemies_stats = () => {
     //update new enemy stats by player level.
+
+    pickable_enemy_stats.forEach((data, index) => {
+        if (index === 0) {
+            const rNum = Math.floor(Math.random() * 100) / 100
+            const profesion = rNum <= 0.33 ? 0 : rNum > 0.33 && rNum <= 0.66 ? 1 : 2 
+            data.level = player_stats.level + 1
+            data.vitality = Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level))
+            data.dexterity = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.intelligence = profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.strength = profesion === 2 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.damage = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.dexterity : 
+            profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.intelligence : 
+            Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.strength
+            data.armor = profesion === 2 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level)) : 
+            Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+        }
+
+        if (index === 1) {
+            const rNum = Math.floor(Math.random() * 100) / 100
+            const profesion = rNum <= 0.33 ? 0 : rNum > 0.33 && rNum <= 0.66 ? 1 : 2 
+            data.level = player_stats.level + 2
+            data.vitality = Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level))
+            data.dexterity = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.intelligence = profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.strength = profesion === 2 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.damage = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.dexterity : 
+            profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.intelligence : 
+            Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.strength
+            data.armor = profesion === 2 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level)) : 
+            Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+        }
+
+        if (index === 2) {
+            const rNum = Math.floor(Math.random() * 100) / 100
+            const profesion = rNum <= 0.33 ? 0 : rNum > 0.33 && rNum <= 0.66 ? 1 : 2 
+            data.level = player_stats.level + 3
+            data.vitality = Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level))
+            data.dexterity = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.intelligence = profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.strength = profesion === 2 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            data.damage = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.dexterity : 
+            profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.intelligence : 
+            Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.strength
+            data.armor = profesion === 2 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level)) : 
+            Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+        }
+        
+    })
 }
+
 let newEnemiesHtml = ''
 const createNewEnemies = () => {
+    //update enemy's stats
+    update_new_enemies_stats()
     let randomImages = []
     // make sure enemies are not same (pictures)
     for (i = 0; i <= 2; i++) {
@@ -279,7 +329,6 @@ const createNewEnemies = () => {
 const update_current_enemy = (data) => {
     //get the enemy which play choose
     let new_e = pickable_enemy_stats.filter(e => e.id === data)[0]
-    console.log(new_e)
     //update stats for current enemy
     enemy_stats.vitality = new_e.vitality
     enemy_stats.dexterity = new_e.dexterity
@@ -312,13 +361,11 @@ const handle_button_new_enemy = () => {
         .forEach((btt) => {
             btt.addEventListener('click', () => {
                 const new_enemy_data = (btt.dataset.id)
-                console.log(new_enemy_data)
                 update_current_enemy(parseInt(new_enemy_data))
             })
         })
           
 }
-
 
 const pickNewEnemy = () => {
     //clean up the board
