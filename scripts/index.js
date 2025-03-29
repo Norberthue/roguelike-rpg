@@ -10,12 +10,15 @@ import { enemy_stats, pickable_enemy_stats, e_vit, e_dex, e_int, e_lck, e_str,
 //battle log elements
 const battle_log_text_element = document.getElementById('battle-log-text')
 const pick_new_enemy_element = document.getElementById('pick-enemy-container')
+const pick_augment_element = document.getElementById('pick-augment-containter')
 const battle_log_title_element = document.getElementsByClassName('battle-text')
 let player_attacks = true
 //get start battle button 
 const start_battle = document.getElementById('start-battle-btt-js')
 // store html for new enemies
 let newEnemiesHtml = ''
+// store html for agumnets
+let augmentsHtml= ''
 //player level 
 let max_level_progress = 10 * player_stats.level
 let exp_gain = 10
@@ -101,6 +104,7 @@ const createNewEnemies = () => {
     }
        
     pickable_enemy_stats.map((data, index) => {
+ 
         newEnemiesHtml += `
              <div class="pickable-e">
                 <div>
@@ -150,7 +154,7 @@ const createNewEnemies = () => {
             </div>
         `
     })
-
+    console.log(newEnemiesHtml)
     return newEnemiesHtml
 }
 
@@ -223,6 +227,38 @@ const pickNewEnemy = () => {
 
 }
 
+const createAugments = () => {
+    for (let i = 0; i <= 2; i++) {
+        augmentsHtml += `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="position: relative;">
+                <img style="width: 130px; height: 120px;;" src="/assets/enemies/con10.png">
+                <div id="desc" style="position: absolute; visibility: hidden;  background-color: rgba(0,0,0,0.8); top: 10px; right: 0; min-width: 90px; min-height: 200px;">
+                    description
+                </div>
+            </div>
+            <div>
+                <p>Berseker Rage</p>
+            </div>
+        </div>
+        `
+    }
+
+    return augmentsHtml
+
+
+}
+
+const showAugments = () => {
+    battle_log_text_element.style.visibility = 'hidden'
+    battle_log_text_element.style.position = 'absolute'
+    pick_augment_element.style.visibility = 'visible'
+    pick_augment_element.style.position = 'initial'
+    pick_augment_element.innerHTML = createAugments()
+    console.log(augmentsHtml)
+
+    
+}
 
 const battle_over = () => {
     if (player_stats.health > 0) {
@@ -242,7 +278,12 @@ const battle_over = () => {
             const newDiv = document.createElement('div')
             newDiv.innerHTML = 'Players level has increase to level ' + player_stats.level + '.'
             battle_log_text_element.appendChild(newDiv)
+            if (player_stats.level === 2 ) {
+                showAugments() 
+            }
+
         }
+       
         update_player_level_stats_ui(max_level_progress)
         //continue btt to pick player's next enemy
         const newBtn = document.createElement('button')

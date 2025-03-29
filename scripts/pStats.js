@@ -45,6 +45,8 @@ export const update_player_stats_ui = () => {
     p_int.innerHTML= player_stats.intelligence
     p_lck.innerHTML= player_stats.luck
     p_str.innerHTML= player_stats.strength
+    p_dmg.innerHTML =  player_stats.damage
+    p_armor.innerHTML = player_stats.armor
     p_points.innerHTML = player_stats.points
     //update health 
     player_stats.health =  Math.round((0.8 *player_stats.level ) * player_stats.vitality)
