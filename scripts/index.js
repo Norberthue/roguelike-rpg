@@ -1,201 +1,29 @@
-let player_stats = {
-    vitality: 523,
-    dexterity: 5,
-    intelligence: 6,
-    luck:10,
-    strength:8,
-    health: 10, 
-    damage: 555,
-    armor: 25,
-    level: 1,
-    levelProgress: 0,
-    points: 0,
-}
+import  { player_stats, p_vit, p_dex, p_int, p_lck, p_str, p_dmg, p_armor, p_points,
+    player_health_element, player_health_text_element, player_level_progress_element,
+    player_level_text_element, player_level_text_progress_element, 
+    update_player_level_stats_ui, update_player_stats_ui} from './pStats.js'
+import { enemy_stats, pickable_enemy_stats, e_vit, e_dex, e_int, e_lck, e_str,
+    e_dmg, e_armor, enemmy_health_element, enemmy_health_text_element, enemy_img ,
+    enemy_level_text, update_enemy_stats_ui } from './eStats.js'
 
-let enemy_stats = {
-    vitality: 20,
-    dexterity: 4,
-    intelligence: 2,
-    luck:20,
-    strength:10,
-    health: 10,
-    damage: 5,
-    armor: 50,
-    level: 1,
-}
 
-let pickable_enemy_stats = [
-     {
-        vitality: 20,
-        dexterity: 4,
-        intelligence: 2,
-        luck:20,
-        strength:15,
-        health: 20,
-        damage: 15,
-        armor: 15,
-        level: 2,
-        id:0,
-    },
-    {
-        vitality: 30,
-        dexterity: 4,
-        intelligence: 2,
-        luck:20,
-        strength:10,
-        health: 10,
-        damage: 20,
-        armor: 25,
-        level: 3,
-        id:1,
-    },
-    {
-        vitality: 40,
-        dexterity: 4,
-        intelligence: 2,
-        luck:20,
-        strength:10,
-        health: 10,
-        damage: 30,
-        armor: 35,
-        level: 4,
-        id:2,
-    }
-]
-
-//player stats decleration
-const p_vit = document.getElementById('p-vit')
-p_vit.innerHTML= player_stats.vitality
-
-const p_dex = document.getElementById('p-dex')
-p_dex.innerHTML= player_stats.dexterity
-
-const p_int = document.getElementById('p-int')
-p_int.innerHTML= player_stats.intelligence
-
-const p_lck = document.getElementById('p-lck')
-p_lck.innerHTML= player_stats.luck
-
-const p_str = document.getElementById('p-str')
-p_str.innerHTML= player_stats.strength
-
-const p_dmg = document.getElementById('p-damage')
-p_dmg.innerHTML = player_stats.damage
-
-const p_armor = document.getElementById('p-armor')
-p_armor.innerHTML = player_stats.armor
-
-//enemy stats decleration
-const e_vit = document.getElementById('e-vit')
-e_vit.innerHTML= enemy_stats.vitality
-
-const e_dex = document.getElementById('e-dex')
-e_dex.innerHTML= enemy_stats.dexterity
-
-const e_int = document.getElementById('e-int')
-e_int.innerHTML= enemy_stats.intelligence
-
-const e_lck = document.getElementById('e-lck')
-e_lck.innerHTML= enemy_stats.luck
-
-const e_str = document.getElementById('e-str')
-e_str.innerHTML= enemy_stats.strength
-
-const e_dmg = document.getElementById('e-damage')
-e_dmg.innerHTML= enemy_stats.damage
-
-const e_armor = document.getElementById('e-armor')
-e_armor.innerHTML= enemy_stats.armor
-
-//player points
-const p_points = document.getElementById('p-points')
-
-//player health
-player_stats.health = Math.round((0.8 *player_stats.level ) * player_stats.vitality)
-//player health bar
-const player_health_element = document.getElementById('p-health')
-player_health_element.setAttribute('max', player_stats.health)
-player_health_element.value = player_stats.health
-//player health bar text
-const player_health_text_element = document.getElementById('p-health-text')
-player_health_text_element.innerHTML = player_stats.health + '/' + player_health_element.getAttribute('max')
-
-//player level 
-let max_level_progress = 10 * player_stats.level
-let exp_gain = 10
-const player_level_progress_element = document.getElementById('p-level')
-player_level_progress_element.setAttribute('max', max_level_progress)
-player_level_progress_element.value = player_stats.levelProgress
-
-const player_level_text_element = document.getElementById('player-level-text')
-player_level_text_element.innerHTML = player_stats.level
-
-const player_level_text_progress_element = document.getElementById('player-level-progress-text')
-player_level_text_progress_element.innerHTML = player_stats.levelProgress + '/' + player_level_progress_element.getAttribute('max')
-
-//enemy health
-enemy_stats.health = Math.round((0.8 * enemy_stats.level) * enemy_stats.vitality)
-//enemy health bar
-const enemmy_health_element = document.getElementById('e-health')
-enemmy_health_element.setAttribute('max', enemy_stats.health)
-enemmy_health_element.value = enemy_stats.health
-//enemy health bar text
-const enemmy_health_text_element = document.getElementById('e-health-text')
-enemmy_health_text_element.innerHTML = enemy_stats.health + '/' + enemmy_health_element.getAttribute('max')
-//enemy img 
-const enemy_img = document.querySelector('.img-enemy')
-// enemy level 
-const enemy_level_text = document.getElementById('enemy-level-text')
-
-//battle variables
+//battle log elements
 const battle_log_text_element = document.getElementById('battle-log-text')
 const pick_new_enemy_element = document.getElementById('pick-enemy-container')
 const battle_log_title_element = document.getElementsByClassName('battle-text')
 let player_attacks = true
-
 //get start battle button 
 const start_battle = document.getElementById('start-battle-btt-js')
-
-const update_player_level_stats_ui = () => {
-    player_level_progress_element.setAttribute('max', max_level_progress)
-    player_level_progress_element.value = player_stats.levelProgress
-    player_level_text_element.innerHTML = player_stats.level
-    player_level_text_progress_element.innerHTML = player_stats.levelProgress + '/' + player_level_progress_element.getAttribute('max')
-    p_points.innerHTML = player_stats.points
-}
-
-const update_player_stats_ui = () => {
-    p_vit.innerHTML= player_stats.vitality
-    p_dex.innerHTML= player_stats.dexterity
-    p_int.innerHTML= player_stats.intelligence
-    p_lck.innerHTML= player_stats.luck
-    p_str.innerHTML= player_stats.strength
-    p_points.innerHTML = player_stats.points
-    //update health 
-    player_stats.health =  Math.round((0.8 *player_stats.level ) * player_stats.vitality)
-    player_health_element.setAttribute('max', player_stats.health)
-    player_health_text_element.innerHTML = player_stats.health + '/' + player_health_element.getAttribute('max')
-    player_health_element.value = player_stats.health
-}
-
-const update_enemy_stats_ui = () => {
-    e_vit.innerHTML= enemy_stats.vitality
-    e_dex.innerHTML= enemy_stats.dexterity
-    e_int.innerHTML= enemy_stats.intelligence
-    e_lck.innerHTML= enemy_stats.luck
-    e_str.innerHTML= enemy_stats.strength
-    e_dmg.innerHTML= enemy_stats.damage
-    e_armor.innerHTML= enemy_stats.armor
-    //enemy health
-    enemy_stats.health = Math.round((0.8 * enemy_stats.level) * enemy_stats.vitality)
-    enemmy_health_element.setAttribute('max', enemy_stats.health)
-    enemmy_health_element.value = enemy_stats.health
-    enemmy_health_text_element.innerHTML = enemy_stats.health + '/' + enemmy_health_element.getAttribute('max')
-    //update enemy level
-    enemy_level_text.innerHTML = enemy_stats.level
-
-}
-
+// store html for new enemies
+let newEnemiesHtml = ''
+//player level 
+let max_level_progress = 10 * player_stats.level
+let exp_gain = 10
+//updating player ui stats
+update_player_level_stats_ui(max_level_progress)
+update_player_stats_ui()
+//updating enemy ui stats
+update_enemy_stats_ui()
 
 const update_new_enemies_stats = () => {
     //update new enemy stats by player level.
@@ -214,6 +42,7 @@ const update_new_enemies_stats = () => {
             Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.strength
             data.armor = profesion === 2 ? Math.round((0.5 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level)) : 
             Math.round((0.3 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            
         }
 
         if (index === 1) {
@@ -249,13 +78,13 @@ const update_new_enemies_stats = () => {
     })
 }
 
-let newEnemiesHtml = ''
+
 const createNewEnemies = () => {
     //update enemy's stats
     update_new_enemies_stats()
     let randomImages = []
     // make sure enemies are not same (pictures)
-    for (i = 0; i <= 2; i++) {
+    for (let i = 0; i <= 2; i++) {
         let randomImg = Math.floor(Math.random() * (42 - 10 + 1)) + 10
         if (randomImages.length >= 1) {
             while (randomImages[i-1] === randomImg) {
@@ -343,7 +172,7 @@ const update_current_enemy = (data) => {
     update_enemy_stats_ui()
     //update enemy img
     const new_e_img = document.getElementById(`e-img-${data}`).src
-    enemy_img.src =  new_e_img
+    enemy_img.src = new_e_img
     //reset everythin that is neccesary
     pick_new_enemy_element.innerHTML = ''
     newEnemiesHtml = ''
@@ -371,13 +200,13 @@ const handle_button_new_enemy = () => {
 
 const pickNewEnemy = () => {
     //clean up the board
-    element = battle_log_text_element.getElementsByTagName('div')
-    element_btn = battle_log_text_element.getElementsByTagName('button')
+    const element = battle_log_text_element.getElementsByTagName('div')
+    const element_btn = battle_log_text_element.getElementsByTagName('button')
     element_btn[0].parentNode.removeChild(element_btn[0])
-    for (i = element.length -1 ; i >= 0 ; i--) {
+    for (let i = element.length -1 ; i >= 0 ; i--) {
         element[i].parentNode.removeChild(element[i])
     }
-
+    
     //reset player health
     update_player_stats_ui()
     //hide battle log
@@ -414,7 +243,7 @@ const battle_over = () => {
             newDiv.innerHTML = 'Players level has increase to level ' + player_stats.level + '.'
             battle_log_text_element.appendChild(newDiv)
         }
-        update_player_level_stats_ui()
+        update_player_level_stats_ui(max_level_progress)
         //continue btt to pick player's next enemy
         const newBtn = document.createElement('button')
         newBtn.innerHTML = 'Countinue'
@@ -464,8 +293,8 @@ const battle = () => {
         } else {
             clearInterval(battle_interval)
             //clean battle log
-            var element = battle_log_text_element.getElementsByTagName('div');
-            for (i = element.length - 1; i >= 0; i--) {
+            const element = battle_log_text_element.getElementsByTagName('div');
+            for (let i = element.length - 1; i >= 0; i--) {
                 element[i].parentNode.removeChild(element[i]);
             }
             battle_over()  
@@ -481,7 +310,7 @@ start_battle.addEventListener('click', () => {
 })
 
 
-//get all button for upgrade
+//get all buttons for upgrade and make them function 
 const upgrade_btt = document.querySelectorAll('[id^=plus-stats]')
 upgrade_btt.forEach((btn) => btn.addEventListener('click', () => {
     if (btn.getAttribute('data-id') === 'vit' && player_stats.points > 0) {
