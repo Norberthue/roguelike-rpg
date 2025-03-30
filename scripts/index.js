@@ -5,28 +5,34 @@ import  { player_stats, p_vit, p_dex, p_int, p_lck, p_str, p_dmg, p_armor, p_poi
 import { enemy_stats, pickable_enemy_stats, e_vit, e_dex, e_int, e_lck, e_str,
     e_dmg, e_armor, enemmy_health_element, enemmy_health_text_element, enemy_img ,
     enemy_level_text, update_enemy_stats_ui } from './eStats.js'
+import { augments } from './augments.js'
 
 
 //battle log elements
-const battle_log_text_element = document.getElementById('battle-log-text')
-const pick_new_enemy_element = document.getElementById('pick-enemy-container')
-const pick_augment_element = document.getElementById('pick-augment-containter')
-const battle_log_title_element = document.getElementsByClassName('battle-text')
+const battleLogElement = document.getElementById('battle-log-text')
+const pickNewEnemyElement = document.getElementById('pick-enemy-container')
+const pickNewAugElement = document.getElementById('pick-augment-container')
+const battleLogTitleElement = document.getElementsByClassName('battle-text')
 let player_attacks = true
+// augmentet element
+const showPlayerAugElement = document.getElementById('aug-container')
 //get start battle button 
-const start_battle = document.getElementById('start-battle-btt-js')
+const startBattleBtn = document.getElementById('start-battle-btt-js')
 // store html for new enemies
 let newEnemiesHtml = ''
 // store html for agumnets
 let augmentsHtml= ''
 //player level 
-let max_level_progress = 10 * player_stats.level
-let exp_gain = 10
+let maxLevelProgress = 10 * player_stats.level
+let expGain = 30
 //updating player ui stats
-update_player_level_stats_ui(max_level_progress)
+update_player_level_stats_ui(maxLevelProgress)
 update_player_stats_ui()
 //updating enemy ui stats
 update_enemy_stats_ui()
+// player's stats for battle 
+let armor_block = Math.floor(((player_stats.damage / 100) * enemy_stats.armor))
+let damage = Math.floor((player_stats.damage - armor_block))
 
 const update_new_enemies_stats = () => {
     //update new enemy stats by player level.
@@ -40,9 +46,11 @@ const update_new_enemies_stats = () => {
             data.dexterity = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
             data.intelligence = profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
             data.strength = profesion === 2 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 4) - data.level + 1))) + data.level)) : Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
+            
             data.damage = profesion === 0 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.dexterity : 
             profesion === 1 ? Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.intelligence : 
             Math.round((0.8 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level)) + data.strength
+            
             data.armor = profesion === 2 ? Math.round((0.5 * data.level) * ((Math.floor(Math.random() * ((data.level * 2) - data.level + 1))) + data.level)) : 
             Math.round((0.3 * data.level) * ((Math.floor(Math.random() * ((data.level * 1.5) - data.level + 1))) + data.level))
             
@@ -82,7 +90,7 @@ const update_new_enemies_stats = () => {
 }
 
 
-const createNewEnemies = () => {
+const create_new_enemies = () => {
     //update enemy's stats
     update_new_enemies_stats()
     let randomImages = []
@@ -154,7 +162,6 @@ const createNewEnemies = () => {
             </div>
         `
     })
-    console.log(newEnemiesHtml)
     return newEnemiesHtml
 }
 
@@ -163,7 +170,7 @@ const update_current_enemy = (data) => {
     //get the enemy which play choose
     let new_e = pickable_enemy_stats.filter(e => e.id === data)[0]
     //update experience for player
-    exp_gain = data === 0 ? 3 * player_stats.level : data === 1 ? 6 * player_stats.level : 9 * player_stats.level
+    expGain = data === 0 ? 3 * player_stats.level : data === 1 ? 6 * player_stats.level : 9 * player_stats.level
     //update stats for current enemy
     enemy_stats.vitality = new_e.vitality
     enemy_stats.dexterity = new_e.dexterity
@@ -178,17 +185,20 @@ const update_current_enemy = (data) => {
     const new_e_img = document.getElementById(`e-img-${data}`).src
     enemy_img.src = new_e_img
     //reset everythin that is neccesary
-    pick_new_enemy_element.innerHTML = ''
+    pickNewEnemyElement.innerHTML = ''
     newEnemiesHtml = ''
     //put battle box back and hide picking enemy container
-    battle_log_text_element.style.visibility = 'visible'
-    battle_log_text_element.style.position = 'initial'
-    pick_new_enemy_element.style.visibility = 'hidden'
-    pick_new_enemy_element.style.position = 'absolute'
+    battleLogElement.style.visibility = 'visible'
+    battleLogElement.style.position = 'initial'
+    pickNewEnemyElement.style.visibility = 'hidden'
+    pickNewEnemyElement.style.position = 'absolute'
     // reset title
-    battle_log_title_element[0].innerHTML= 'Battle log'
+    battleLogTitleElement[0].innerHTML= 'Battle log'
     battle()
 }
+
+
+
 
 
 const handle_button_new_enemy = () => {
@@ -204,8 +214,8 @@ const handle_button_new_enemy = () => {
 
 const pickNewEnemy = () => {
     //clean up the board
-    const element = battle_log_text_element.getElementsByTagName('div')
-    const element_btn = battle_log_text_element.getElementsByTagName('button')
+    const element = battleLogElement.getElementsByTagName('div')
+    const element_btn = battleLogElement.getElementsByTagName('button')
     element_btn[0].parentNode.removeChild(element_btn[0])
     for (let i = element.length -1 ; i >= 0 ; i--) {
         element[i].parentNode.removeChild(element[i])
@@ -214,88 +224,115 @@ const pickNewEnemy = () => {
     //reset player health
     update_player_stats_ui()
     //hide battle log
-    battle_log_text_element.style.visibility = 'hidden'
-    battle_log_text_element.style.position = 'absolute'
+    battleLogElement.style.visibility = 'hidden'
+    battleLogElement.style.position = 'absolute'
     //show enemies container
-    pick_new_enemy_element.innerHTML= createNewEnemies()
-    pick_new_enemy_element.style.visibility = 'visible'
-    pick_new_enemy_element.style.position = 'initial'
+    pickNewEnemyElement.innerHTML= create_new_enemies()
+    pickNewEnemyElement.style.visibility = 'visible'
+    pickNewEnemyElement.style.position = 'initial'
     
     //change the title
-    battle_log_title_element[0].innerHTML= 'Pick your next enemy'
+    battleLogTitleElement[0].innerHTML= 'Pick your next enemy'
     handle_button_new_enemy()
 
 }
 
-const createAugments = () => {
-    for (let i = 0; i <= 2; i++) {
+const addClass = (aug) => {
+    // add class to player
+    player_stats.class = aug
+    //bring back battle log and reset augments html
+    augmentsHtml = ''
+    pickNewAugElement.style.visibility = 'hidden'
+    pickNewAugElement.style.position = 'absolute'
+    battleLogElement.style.visibility = 'visible'
+    battleLogElement.style.position = 'initial'
+    //show what aug has picked
+    const newDiv = document.createElement('div')
+    newDiv.innerHTML = aug
+    showPlayerAugElement.appendChild(newDiv)
+    
+}
+
+
+const handel_pick_augment_btn = () => {
+    const aug_btn = document.querySelectorAll('[id^=pick-the-augment]')
+    aug_btn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const data_btn = btn.dataset.id
+            addClass(data_btn)
+        }) 
+    })
+    
+}
+
+const create_augments = () => {
+    augments.map((data) => {
         augmentsHtml += `
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <div style="position: relative;">
-                <img style="width: 130px; height: 120px;;" src="./assets/enemies/con10.png">
+                <img style="width: 130px; height: 120px;" src=${data.img}>
                 <div id="desc" style="position: absolute; visibility: hidden;  background-color: rgba(0,0,0,0.8); top: 10px; right: 0; min-width: 90px; min-height: 200px;">
                     description
                 </div>
             </div>
             <div>
-                <p>Berseker Rage</p>
+                <p>${data.name}</p>
             </div>
+            <button id='pick-the-augment' data-id=${data.name}>Pick the Augment</button>
         </div>
         `
-    }
+    })
+    
 
     return augmentsHtml
-
-
 }
 
-const showAugments = () => {
-    battle_log_text_element.style.visibility = 'hidden'
-    battle_log_text_element.style.position = 'absolute'
-    pick_augment_element.style.visibility = 'visible'
-    pick_augment_element.style.position = 'initial'
-    pick_augment_element.innerHTML = createAugments()
-    console.log(augmentsHtml)
-
-    
+const show_augments = () => {
+    battleLogElement.style.visibility = 'hidden'
+    battleLogElement.style.position = 'absolute'
+    pickNewAugElement.style.visibility = 'visible'
+    pickNewAugElement.style.position = 'initial'
+    pickNewAugElement.innerHTML = create_augments()
+    handel_pick_augment_btn()
+     
 }
 
 const battle_over = () => {
     if (player_stats.health > 0) {
         //battle log
         const newDiv = document.createElement('div')
-        newDiv.innerHTML = 'Player has won !\n Reward: ' +  exp_gain + ' exp'
-        battle_log_text_element.appendChild(newDiv)
+        newDiv.innerHTML = 'Player has won !\n Reward: ' +  expGain + ' exp'
+        battleLogElement.appendChild(newDiv)
         
         //update player exeperience and level
-        player_stats.levelProgress += exp_gain
+        player_stats.levelProgress += expGain
         
-        if (player_stats.levelProgress >= max_level_progress) {
-            player_stats.levelProgress = player_stats.levelProgress - max_level_progress
+        if (player_stats.levelProgress >= maxLevelProgress) {
+            player_stats.levelProgress = player_stats.levelProgress - maxLevelProgress
             player_stats.level += 1   
-            max_level_progress += 5 * player_stats.level
+            maxLevelProgress += 5 * player_stats.level
             player_stats.points += 10
             const newDiv = document.createElement('div')
             newDiv.innerHTML = 'Players level has increase to level ' + player_stats.level + '.'
-            battle_log_text_element.appendChild(newDiv)
-            if (player_stats.level === 2 ) {
-                showAugments() 
+            battleLogElement.appendChild(newDiv)
+            if (player_stats.level === 2 || player_stats.level % 5 === 0) {
+                show_augments() 
             }
 
         }
        
-        update_player_level_stats_ui(max_level_progress)
+        update_player_level_stats_ui(maxLevelProgress)
         //continue btt to pick player's next enemy
         const newBtn = document.createElement('button')
         newBtn.innerHTML = 'Countinue'
         newBtn.style.marginTop = '5px'
         newBtn.addEventListener('click', pickNewEnemy)
-        battle_log_text_element.appendChild(newBtn)
+        battleLogElement.appendChild(newBtn)
     } else {
         //reset the game
         const newDiv = document.createElement('div')
         newDiv.innerHTML = 'Enemy has won ! \n Game is restarting itself...' 
-        battle_log_text_element.appendChild(newDiv)
+        battleLogElement.appendChild(newDiv)
         setTimeout(() => {
             window.location.reload()
         },2000)
@@ -303,24 +340,34 @@ const battle_over = () => {
     }
 }
 
+
+const calculate_player_atk_based_on_class = () => {
+     //math for fight
+     
+    if (player_stats.class === 'berserker' ) {
+        armor_block = Math.floor(((player_stats.damage / 100) * enemy_stats.armor))
+        damage = Math.floor((player_stats.damage - armor_block))
+        
+    }
+    enemy_stats.health -= damage
+    enemmy_health_element.value = enemy_stats.health
+    enemmy_health_text_element.innerHTML = enemy_stats.health + '/' + enemmy_health_element.getAttribute('max')
+    player_attacks = false
+    
+}
+
 const battle = () => {
     const battle_interval = setInterval(() => {
         if (player_stats.health > 0 && enemy_stats.health > 0) {
             if (player_attacks ) {
-                //math for fight
-                let armor_block = Math.floor(((player_stats.damage / 100) * enemy_stats.armor))
-                let damage = Math.floor((player_stats.damage - armor_block))
-                enemy_stats.health -= damage
-                enemmy_health_element.value = enemy_stats.health
-                enemmy_health_text_element.innerHTML = enemy_stats.health + '/' + enemmy_health_element.getAttribute('max')
-                player_attacks = false
+                calculate_player_atk_based_on_class()
                 //battle log
                 const newDiv = document.createElement('div')
                 newDiv.innerHTML = 'Player does ' + damage + ' damage to Enemy. Enemy Blocks ' + armor_block + ' damage with his armor.'
-                battle_log_text_element.appendChild(newDiv)
+                battleLogElement.appendChild(newDiv)
             } else {
                 //math for battle
-                const armor_block =  Math.floor((enemy_stats.damage / 100) * enemy_stats.armor)
+                const armor_block =  Math.floor((enemy_stats.damage / 100) * player_stats.armor)
                 const damage = Math.floor((enemy_stats.damage - armor_block))
                 player_stats.health -= damage
                 player_health_text_element.innerHTML = player_stats.health + '/' + player_health_element.getAttribute('max')
@@ -329,12 +376,12 @@ const battle = () => {
                 //battle log
                 const newDiv = document.createElement('div')
                 newDiv.innerHTML = 'Enemy does ' + damage + ' damage to Player. Player Blocks ' + armor_block + ' damage with his armor.'
-                battle_log_text_element.appendChild(newDiv)
+                battleLogElement.appendChild(newDiv)
             }
         } else {
             clearInterval(battle_interval)
             //clean battle log
-            const element = battle_log_text_element.getElementsByTagName('div');
+            const element = battleLogElement.getElementsByTagName('div');
             for (let i = element.length - 1; i >= 0; i--) {
                 element[i].parentNode.removeChild(element[i]);
             }
@@ -345,9 +392,9 @@ const battle = () => {
 }
 
 
-start_battle.addEventListener('click', () => {
+startBattleBtn.addEventListener('click', () => {
     battle()
-    start_battle.style.visibility= 'hidden'
+    startBattleBtn.style.visibility= 'hidden'
 })
 
 

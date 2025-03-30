@@ -36,4 +36,8 @@ div, h1 ,h3, p{
     grid-column: span 9 / span 9;
     min-height: 360px;
     background-color: rgb(37, 172, 89);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }

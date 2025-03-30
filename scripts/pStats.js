@@ -1,15 +1,18 @@
 export let player_stats = {
-    vitality: 523,
+    vitality: 23,
     dexterity: 5,
     intelligence: 6,
     luck:10,
     strength:8,
     health: 10, 
-    damage: 555,
+    damage: 25,
     armor: 25,
     level: 1,
     levelProgress: 0,
     points: 0,
+    class: null
+
+    
 }
 
 //player stats decleration
