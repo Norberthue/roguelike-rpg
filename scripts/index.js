@@ -279,7 +279,7 @@ const battle_over = () => {
             newDiv.innerHTML = 'Players level has increase to level ' + player_stats.level + '.'
             battle_log_text_element.appendChild(newDiv)
             if (player_stats.level === 2 ) {
-                // showAugments() 
+                showAugments() 
             }
 
         }
