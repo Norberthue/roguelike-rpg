@@ -232,7 +232,7 @@ const createAugments = () => {
         augmentsHtml += `
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <div style="position: relative;">
-                <img style="width: 130px; height: 120px;;" src="/assets/enemies/con10.png">
+                <img style="width: 130px; height: 120px;;" src="./assets/enemies/con10.png">
                 <div id="desc" style="position: absolute; visibility: hidden;  background-color: rgba(0,0,0,0.8); top: 10px; right: 0; min-width: 90px; min-height: 200px;">
                     description
                 </div>
@@ -279,7 +279,7 @@ const battle_over = () => {
             newDiv.innerHTML = 'Players level has increase to level ' + player_stats.level + '.'
             battle_log_text_element.appendChild(newDiv)
             if (player_stats.level === 2 ) {
-                showAugments() 
+                // showAugments() 
             }
 
         }
