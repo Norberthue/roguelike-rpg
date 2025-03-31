@@ -45,9 +45,78 @@
 
 }
 
+.img-background-p{
+    position: relative;
+}
+
+
+.img-background-e {
+    position: relative;
+}
+
+.p-weapon{
+    width: 130px;
+    height: 100px;
+    position: absolute;
+    animation-name: imgAnimationAttackP;
+    animation-duration: 1s;
+    animation-iteration-count: infinite ;
+    animation-play-state: paused;
+    z-index: 10;
+}
+
+
+.e-weapon {
+    opacity: 0;
+    rotate: 260deg;
+    width: 130px;
+    height: 100px;
+    position: absolute;
+    animation-name: imgAnimationAttackE;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    z-index: 10;
+}
+
+@keyframes imgAnimationAttackP {
+    from {left: 0%; top: 0%; opacity: 0;}
+    to {left: 300%; top:30%; opacity: 100;}
+}
+
+@keyframes imgAnimationAttackE {
+    from {right: 0%; top: 0%; opacity: 0;}
+    to {right: 300%; top:30%; opacity: 100;}
+}
+
+@keyframes hitted {
+    0% {rotate: 0deg}
+    25% {rotate: -30deg}
+    50% {rotate: 0deg}
+    50% {rotate: 30deg}
+}
+
 .img-player {
     width: 230px;
     height: 200px;
+}
+
+.anim-p-img {
+    animation-name: hitted;
+    animation-duration: 150ms;
+    animation-play-state: paused;
+}
+
+.img-enemy {
+    width: 230px;
+    height: 200px;
+    animation-name: hitted;
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    width: 230px;
+    height: 200px;
+
 }
 
 .player-stats {
@@ -90,10 +159,7 @@
     flex-direction: column;
 }
 
-.img-enemy {
-    width: 230px;
-    height: 200px;
-}
+
 
 .enemy-stats {
     background-color: rgb(190, 71, 190);

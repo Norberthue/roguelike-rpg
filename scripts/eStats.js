@@ -1,5 +1,5 @@
 export let enemy_stats = {
-    vitality: 20,
+    vitality:20,
     dexterity: 4,
     intelligence: 2,
     luck:20,
@@ -65,6 +65,8 @@ export const enemmy_health_text_element = document.getElementById('e-health-text
 export const enemy_img = document.querySelector('.img-enemy')
 // enemy level 
 export const enemy_level_text = document.getElementById('enemy-level-text')
+//enemy weapon 
+export const e_image_weapon = document.querySelector('.e-weapon')
 
 export const update_enemy_stats_ui = () => {
     e_vit.innerHTML= enemy_stats.vitality
